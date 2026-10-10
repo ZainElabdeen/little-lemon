@@ -13,7 +13,11 @@ const logoImg = require("@/assets/images/Logo.png");
 
 const screenWidth = Dimensions.get("window").width;
 
-const Onboarding = () => {
+type OnboardingProps = {
+  onDone?: () => void;
+};
+
+const Onboarding = ({ onDone }: OnboardingProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   return (
@@ -28,7 +32,7 @@ const Onboarding = () => {
             <Text style={styles.lable}>First Name</Text>
             <TextInput
               style={styles.input}
-              onChangeText={() => {}}
+              onChangeText={setFirstName}
               value={firstName}
             />
           </View>
@@ -38,7 +42,7 @@ const Onboarding = () => {
             <Text style={styles.lable}>Email</Text>
             <TextInput
               style={styles.input}
-              onChangeText={() => {}}
+              onChangeText={setEmail}
               value={email}
               keyboardType="email-address"
             />
@@ -53,7 +57,7 @@ const Onboarding = () => {
           marginRight: 30,
         }}
       >
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={onDone}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
