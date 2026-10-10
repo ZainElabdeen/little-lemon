@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  StyleSheet,
-  View,
   Image,
-  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Banner from "@/components/Banner";
 import { FONT_BODY, FONT_HEADING } from "@/utils/theme";
 
 const logoImg = require("@/assets/images/Logo.png");
 
-const screenWidth = Dimensions.get("window").width;
+const BRAND_GREEN = "#495E57";
+const BRAND_YELLOW = "#F4CE14";
 
 export type OnboardingData = {
   firstName: string;
@@ -26,112 +31,122 @@ type OnboardingProps = {
 const Onboarding = ({ onDone }: OnboardingProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
+
   return (
-    <View style={styles.container}>
-      <Image source={logoImg} style={styles.headerImage} />
-      <View style={styles.formContainer}>
-        <Text style={styles.text}>Let us get to know you</Text>
-        <View>
-          <View
-          //   style={{ flex: 0.2, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text style={styles.lable}>First Name</Text>
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
+      <View style={styles.header}>
+        <Image source={logoImg} style={styles.headerLogo} />
+      </View>
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <ScrollView
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Banner />
+
+          <View style={styles.form}>
+            <Text style={styles.heading}>Let us get to know you</Text>
+
+            <Text style={styles.label}>First name</Text>
             <TextInput
               style={styles.input}
               onChangeText={setFirstName}
               value={firstName}
+              placeholder="First name"
+              placeholderTextColor="#7C8B87"
             />
-          </View>
-          <View
-          //   style={{ flex: 0.2, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text style={styles.lable}>Email</Text>
+
+            <Text style={styles.label}>Email</Text>
             <TextInput
               style={styles.input}
               onChangeText={setEmail}
               value={email}
               keyboardType="email-address"
+              autoCapitalize="none"
+              placeholder="you@example.com"
+              placeholderTextColor="#7C8B87"
             />
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => onDone?.({ firstName, email })}
+              accessibilityRole="button"
+            >
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
           </View>
-        </View>
-      </View>
-      <View
-        style={{
-          flex: 0.2,
-          justifyContent: "center",
-          alignSelf: "flex-end",
-          marginRight: 30,
-        }}
-      >
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onDone?.({ firstName, email })}
-        >
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default Onboarding;
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#ffffff",
+  },
+  flex: {
+    flex: 1,
+  },
+  header: {
+    backgroundColor: "#ffffff",
     alignItems: "center",
-    // margin: 10,
-    // padding: 10,
-    // width: "100%",
-    // backgroundColor: "#CBD2D9",
+    paddingVertical: 13,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: "#CBD2D9",
   },
-  headerImage: {
-    width: 280,
-    height: 60,
-    margin: 10,
-  },
-  input: {
+  headerLogo: {
+    width: 185,
     height: 40,
-    margin: 10,
-    borderWidth: 1,
-    padding: 10,
-    width: 250,
-    borderRadius: 10,
+    resizeMode: "contain",
+  },
+  content: {
+    paddingBottom: 40,
+  },
+  form: {
+    padding: 20,
+  },
+  heading: {
+    fontSize: 22,
+    color: BRAND_GREEN,
+    fontFamily: FONT_HEADING,
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 16,
+    color: BRAND_GREEN,
+    fontWeight: "500",
+    marginBottom: 6,
     fontFamily: FONT_BODY,
   },
-  text: {
-    fontSize: 20,
-    color: "#495E57",
-    fontWeight: "semibold",
-    fontFamily: FONT_HEADING,
-  },
-  formContainer: {
-    flex: 1,
-    gap: 10,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    // width: "100%",
-    backgroundColor: "#CBD2D9",
-  },
-  lable: {
-    fontSize: 18,
-    color: "#495E57",
-    fontWeight: "medium",
-    textAlign: "center",
+  input: {
+    height: 44,
+    borderWidth: 1,
+    borderColor: "#CBD2D9",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    fontSize: 16,
+    color: "#1F1F1F",
+    marginBottom: 16,
     fontFamily: FONT_BODY,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#CBD2D9",
-    padding: 10,
+    backgroundColor: BRAND_YELLOW,
     borderRadius: 10,
-    width: 100,
+    paddingVertical: 14,
+    alignItems: "center",
+    marginTop: 8,
   },
   buttonText: {
+    color: BRAND_GREEN,
     fontSize: 18,
-    color: "#495E57",
-    fontWeight: "bold",
+    fontWeight: "700",
     fontFamily: FONT_BODY,
   },
 });
