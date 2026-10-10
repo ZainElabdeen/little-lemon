@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { FONT_HEADING } from "@/utils/theme";
 
 const logoImg = require("@/assets/images/Logo.png");
 
@@ -30,5 +31,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#495E57",
+    fontFamily: FONT_HEADING,
   },
 });

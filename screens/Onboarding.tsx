@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { FONT_BODY, FONT_HEADING } from "@/utils/theme";
 
 const logoImg = require("@/assets/images/Logo.png");
 
@@ -97,11 +98,13 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 250,
     borderRadius: 10,
+    fontFamily: FONT_BODY,
   },
   text: {
     fontSize: 20,
     color: "#495E57",
     fontWeight: "semibold",
+    fontFamily: FONT_HEADING,
   },
   formContainer: {
     flex: 1,
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
     color: "#495E57",
     fontWeight: "medium",
     textAlign: "center",
+    fontFamily: FONT_BODY,
   },
   button: {
     alignItems: "center",
@@ -128,5 +132,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#495E57",
     fontWeight: "bold",
+    fontFamily: FONT_BODY,
   },
 });

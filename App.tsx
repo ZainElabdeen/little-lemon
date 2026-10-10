@@ -1,21 +1,26 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Home from "@/screens/Home";
 import Onboarding, { OnboardingData } from "@/screens/Onboarding";
 import Profile from "@/screens/Profile";
 import SplashScreen from "@/screens/SplashScreen";
 import { STORAGE_KEYS } from "@/utils/storage";
+import { FONT_ASSETS } from "@/utils/theme";
 
 export type RootStackParamList = {
   Onboarding: undefined;
+  Home: undefined;
   Profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const [fontsLoaded] = useFonts(FONT_ASSETS);
   const [isLoading, setIsLoading] = useState(true);
   const [isOnboardingCompleted, setIsOnboardingCompleted] = useState(false);
 
@@ -48,7 +53,7 @@ export default function App() {
     setIsOnboardingCompleted(false);
   };
 
-  if (isLoading) {
+  if (!fontsLoaded || isLoading) {
     return <SplashScreen />;
   }
 
@@ -57,9 +62,23 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {isOnboardingCompleted ? (
-            <Stack.Screen name="Profile">
-              {() => <Profile onLogout={logout} />}
-            </Stack.Screen>
+            <>
+              <Stack.Screen name="Home">
+                {({ navigation }) => (
+                  <Home
+                    onOpenProfile={() => navigation.navigate("Profile")}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Profile">
+                {({ navigation }) => (
+                  <Profile
+                    onLogout={logout}
+                    onBack={() => navigation.goBack()}
+                  />
+                )}
+              </Stack.Screen>
+            </>
           ) : (
             <Stack.Screen name="Onboarding">
               {() => <Onboarding onDone={completeOnboarding} />}

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { isValidUSPhoneNumber } from "@/utils/validation";
+import { FONT_BODY, FONT_HEADING } from "@/utils/theme";
 import {
   DEFAULT_NOTIFICATION_PREFERENCES,
   NOTIFICATION_LABELS,
@@ -28,9 +29,10 @@ const BRAND_YELLOW = "#F4CE14";
 
 type ProfileProps = {
   onLogout?: () => void;
+  onBack?: () => void;
 };
 
-const Profile = ({ onLogout }: ProfileProps) => {
+const Profile = ({ onLogout, onBack }: ProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -165,6 +167,16 @@ const Profile = ({ onLogout }: ProfileProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        {onBack ? (
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={onBack}
+            accessibilityRole="button"
+            accessibilityLabel="Go back"
+          >
+            <Text style={styles.backButtonText}>←</Text>
+          </TouchableOpacity>
+        ) : null}
         <Image source={logoImg} style={styles.headerLogo} />
       </View>
       <ScrollView
@@ -310,6 +322,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "#CBD2D9",
   },
+  backButton: {
+    position: "absolute",
+    left: 12,
+    top: 0,
+    bottom: 0,
+    justifyContent: "center",
+    paddingHorizontal: 8,
+  },
+  backButtonText: {
+    fontSize: 28,
+    color: BRAND_GREEN,
+    lineHeight: 30,
+  },
   headerLogo: {
     width: 185,
     height: 40,
@@ -324,6 +349,7 @@ const styles = StyleSheet.create({
     color: BRAND_GREEN,
     fontWeight: "600",
     marginBottom: 12,
+    fontFamily: FONT_HEADING,
   },
   notificationsTitle: {
     marginTop: 24,
@@ -356,12 +382,14 @@ const styles = StyleSheet.create({
     color: BRAND_GREEN,
     fontSize: 16,
     fontWeight: "600",
+    fontFamily: FONT_BODY,
   },
   label: {
     fontSize: 16,
     color: BRAND_GREEN,
     fontWeight: "500",
     marginBottom: 6,
+    fontFamily: FONT_BODY,
   },
   input: {
     height: 44,
@@ -372,6 +400,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1F1F1F",
     marginBottom: 16,
+    fontFamily: FONT_BODY,
   },
   inputReadOnly: {
     backgroundColor: "#EDEFEE",
@@ -382,6 +411,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: -10,
     marginBottom: 16,
+    fontFamily: FONT_BODY,
   },
   checkboxRow: {
     flexDirection: "row",
@@ -410,6 +440,7 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     fontSize: 16,
     color: "#1F1F1F",
+    fontFamily: FONT_BODY,
   },
   savedText: {
     color: BRAND_GREEN,
@@ -417,6 +448,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 20,
     textAlign: "center",
+    fontFamily: FONT_BODY,
   },
   logoutButton: {
     backgroundColor: BRAND_YELLOW,
@@ -428,6 +460,7 @@ const styles = StyleSheet.create({
     color: BRAND_GREEN,
     fontSize: 18,
     fontWeight: "700",
+    fontFamily: FONT_BODY,
   },
   bottomActions: {
     marginTop: 20,
@@ -450,6 +483,7 @@ const styles = StyleSheet.create({
     color: BRAND_GREEN,
     fontSize: 16,
     fontWeight: "700",
+    fontFamily: FONT_BODY,
   },
   saveButton: {
     flex: 1,
@@ -462,5 +496,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "700",
+    fontFamily: FONT_BODY,
   },
 });
