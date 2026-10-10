@@ -13,8 +13,13 @@ const logoImg = require("@/assets/images/Logo.png");
 
 const screenWidth = Dimensions.get("window").width;
 
+export type OnboardingData = {
+  firstName: string;
+  email: string;
+};
+
 type OnboardingProps = {
-  onDone?: () => void;
+  onDone?: (data: OnboardingData) => void;
 };
 
 const Onboarding = ({ onDone }: OnboardingProps) => {
@@ -57,7 +62,10 @@ const Onboarding = ({ onDone }: OnboardingProps) => {
           marginRight: 30,
         }}
       >
-        <TouchableOpacity style={styles.button} onPress={onDone}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onDone?.({ firstName, email })}
+        >
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
