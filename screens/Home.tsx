@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Banner from "@/components/Banner";
 import CategoryList from "@/components/CategoryList";
 import MenuItemCard from "@/components/MenuItemCard";
+import SearchBar from "@/components/SearchBar";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { fetchMenu } from "@/utils/api";
 import {
@@ -186,10 +187,13 @@ function Home({ onOpenProfile }: HomeProps) {
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={
             <>
-              <Banner
-                searchText={searchText}
-                onSearchTextChange={setSearchText}
-              />
+              <Banner />
+              <View style={styles.searchArea}>
+                <SearchBar
+                  value={searchText}
+                  onChangeText={setSearchText}
+                />
+              </View>
               <Text style={styles.categoryHeading}>Order for Delivery</Text>
               <CategoryList
                 categories={categories}
@@ -243,12 +247,16 @@ const styles = StyleSheet.create({
   categoryHeading: {
     fontFamily: FONT_BODY,
     fontWeight: "bold",
-    fontSize: 24,
-    color: "#333333",
+    fontSize: 20,
+    color: "#1F1F1F",
     paddingHorizontal: 16,
     marginTop: 16,
     marginBottom: 4,
-    textTransform: "uppercase",
+  },
+  searchArea: {
+    backgroundColor: BRAND_GREEN,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   loadingText: {
     fontSize: 16,
