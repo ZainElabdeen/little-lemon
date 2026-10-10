@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   pill: {
-    backgroundColor: "#ffffff",
-    borderColor: "#495E57",
+    backgroundColor: "#EDEFEE",
+    borderColor: "#EDEFEE",
     borderWidth: 1,
     borderRadius: 16,
     paddingHorizontal: 14,
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   pillText: {
     color: "#495E57",
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "bold",
     fontFamily: FONT_BODY,
   },
   pillTextActive: {

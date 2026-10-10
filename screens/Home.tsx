@@ -190,6 +190,7 @@ function Home({ onOpenProfile }: HomeProps) {
                 searchText={searchText}
                 onSearchTextChange={setSearchText}
               />
+              <Text style={styles.categoryHeading}>Order for Delivery</Text>
               <CategoryList
                 categories={categories}
                 selected={selectedCategories}
@@ -238,6 +239,16 @@ const styles = StyleSheet.create({
   center: {
     paddingVertical: 40,
     alignItems: "center",
+  },
+  categoryHeading: {
+    fontFamily: FONT_BODY,
+    fontWeight: "bold",
+    fontSize: 24,
+    color: "#333333",
+    paddingHorizontal: 16,
+    marginTop: 16,
+    marginBottom: 4,
+    textTransform: "uppercase",
   },
   loadingText: {
     fontSize: 16,

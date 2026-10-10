@@ -174,10 +174,18 @@ const Profile = ({ onLogout, onBack }: ProfileProps) => {
             accessibilityRole="button"
             accessibilityLabel="Go back"
           >
-            <Text style={styles.backButtonText}>←</Text>
+            <View style={styles.backCircle}>
+              <Text style={styles.backButtonText}>←</Text>
+            </View>
           </TouchableOpacity>
         ) : null}
         <Image source={logoImg} style={styles.headerLogo} />
+        <View style={styles.headerAvatarWrapper}>
+          <Image
+            source={avatarUri ? { uri: avatarUri } : avatarPlaceholderImg}
+            style={styles.headerAvatar}
+          />
+        </View>
       </View>
       <ScrollView
         contentContainerStyle={styles.content}
@@ -316,8 +324,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    backgroundColor: "#ffffff",
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
     paddingVertical: 13,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "#CBD2D9",
@@ -328,17 +338,36 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     justifyContent: "center",
-    paddingHorizontal: 8,
+  },
+  backCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: BRAND_GREEN,
+    alignItems: "center",
+    justifyContent: "center",
   },
   backButtonText: {
-    fontSize: 28,
-    color: BRAND_GREEN,
-    lineHeight: 30,
+    fontSize: 20,
+    color: "#ffffff",
+    lineHeight: 22,
   },
   headerLogo: {
     width: 185,
     height: 40,
     resizeMode: "contain",
+  },
+  headerAvatarWrapper: {
+    position: "absolute",
+    right: 12,
+    top: 0,
+    bottom: 0,
+    justifyContent: "center",
+  },
+  headerAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
   },
   content: {
     padding: 20,
